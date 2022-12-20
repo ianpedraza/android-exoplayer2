@@ -10,5 +10,6 @@
         <item name="android:paddingEnd">@dimen/default_margin</item>
         <item name="android:paddingBottom">@dimen/default_margin</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="drawableEndCompat">@drawable/ic_arrow_forward</item>
     </style>
 </resources>

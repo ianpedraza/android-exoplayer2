@@ -18,5 +18,13 @@
         <action
             android:id="@+id/action_homeFragment_to_adsFragment"
             app:destination="@id/adsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_audioFragment"
+            app:destination="@id/audioFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/audioFragment"
+        android:name="com.ianpedraza.exoplayerio18.ui.audio.AudioFragment"
+        android:label="fragment_audio"
+        tools:layout="@layout/fragment_audio" />
 </navigation>

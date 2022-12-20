@@ -29,9 +29,14 @@ class HomeFragment : Fragment() {
 
     private fun setupUi() {
         binding.tvHomeAds.setOnClickListener { goToAds() }
+        binding.tvHomeAudio.setOnClickListener { goToAudio() }
     }
 
     private fun goToAds() {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAdsFragment())
+    }
+
+    private fun goToAudio() {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAudioFragment())
     }
 }
