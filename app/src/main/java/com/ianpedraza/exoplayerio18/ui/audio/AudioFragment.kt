@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.exoplayer2.offline.DownloadRequest
 import com.google.android.exoplayer2.offline.DownloadService
-import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import com.ianpedraza.exoplayerio18.databinding.FragmentAudioBinding
+import com.ianpedraza.exoplayerio18.utils.AudioDataSource
 
 class AudioFragment : Fragment() {
 
@@ -34,8 +34,8 @@ class AudioFragment : Fragment() {
 
     private fun setupUi() {
         binding.btnPlay.setOnClickListener {
-            startPlaying()
-            // startDownloadForItem(AudioDataSource.data.first())
+            // startPlaying()
+            startDownloadForItem(AudioDataSource.data.first())
         }
     }
 
@@ -46,7 +46,9 @@ class AudioFragment : Fragment() {
 
     private fun startDownloadForItem(item: AudioItem) {
         val downloadRequest = DownloadRequest.Builder(item.id, Uri.parse(item.uri))
-            .setMimeType(MimeTypes.AUDIO_MP4)
+            .setData(null)
+            .setCustomCacheKey(null)
+            // .setMimeType(MimeTypes.AUDIO_MP4)
             .build()
 
         DownloadService.sendAddDownload(

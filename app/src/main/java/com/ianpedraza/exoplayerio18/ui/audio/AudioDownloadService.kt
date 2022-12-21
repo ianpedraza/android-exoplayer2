@@ -45,6 +45,6 @@ class AudioDownloadService :
     companion object {
         private const val DOWNLOAD_NOTIFICATION_ID = 953
         private const val DOWNLOAD_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL = 1000L
-        private const val DOWNLOAD_CHANNEL_ID = "Download Channel"
+        private const val DOWNLOAD_CHANNEL_ID = "DownloadChannel"
     }
 }
