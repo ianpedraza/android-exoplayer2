@@ -12,5 +12,7 @@
     <string name="play">Play</string>
     <string name="audio">Audio</string>
     <string name="channel_playback">Playback channel</string>
-    <string name="channel_playback_description">This channel is used to show playback pkayer in notifications</string>
+    <string name="channel_download">Download channel</string>
+    <string name="channel_playback_description">This channel is used to show playback player in notifications</string>
+    <string name="channel_download_description">This channel is used to show downloads progress</string>
 </resources>

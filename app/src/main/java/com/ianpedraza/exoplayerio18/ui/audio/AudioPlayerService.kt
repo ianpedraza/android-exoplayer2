@@ -3,18 +3,20 @@ package com.ianpedraza.exoplayerio18.ui.audio
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.session.MediaSessionCompat
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
-import com.google.android.exoplayer2.ext.mediasession.TimelineQueueNavigator
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.util.MimeTypes
 import com.ianpedraza.exoplayerio18.R
 import com.ianpedraza.exoplayerio18.utils.AudioDataSource
+import com.ianpedraza.exoplayerio18.utils.DownloadUtil
 
 class AudioPlayerService : Service() {
 
@@ -47,17 +49,7 @@ class AudioPlayerService : Service() {
                 playerNotificationManager?.setMediaSessionToken(mediaSession.sessionToken)
             }
 
-        val timelineQueueNavigator = object : TimelineQueueNavigator(mediaSession!!) {
-            override fun getMediaDescription(
-                player: Player,
-                windowIndex: Int
-            ): MediaDescriptionCompat {
-                return AudioDataSource.getMediaDescription(
-                    this@AudioPlayerService,
-                    AudioDataSource.data[windowIndex]
-                )
-            }
-        }
+        val timelineQueueNavigator = DefaultTimelineQueueNavigator(this, mediaSession!!)
 
         mediaSessionConnector = MediaSessionConnector(mediaSession!!)
             .also { mediaSessionConnector ->
@@ -76,18 +68,32 @@ class AudioPlayerService : Service() {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
 
+        val dataSourceFactory = DefaultHttpDataSource.Factory()
+
+        val cacheDataSourceFactory = CacheDataSource.Factory()
+            .setCache(DownloadUtil.getCache(this))
+            .setUpstreamDataSourceFactory(dataSourceFactory)
+
+        val concatenatingMediaSource = ConcatenatingMediaSource()
+
         player = ExoPlayer.Builder(this)
             .setTrackSelector(trackSelector)
             .build()
             .also { player ->
                 AudioDataSource.data.forEach { item ->
-                    val adaptiveMediaItem = MediaItem.Builder()
+                    val mediaItem = MediaItem.Builder()
                         .setUri(item.uri)
                         .setMimeType(MimeTypes.AUDIO_MP4)
                         .build()
 
-                    player.addMediaItem(adaptiveMediaItem)
+                    val mediaSource = ProgressiveMediaSource.Factory(cacheDataSourceFactory)
+                        .createMediaSource(mediaItem)
+
+                    // player.addMediaItem(mediaItem)
+                    concatenatingMediaSource.addMediaSource(mediaSource)
                 }
+
+                player.setMediaSource(concatenatingMediaSource)
             }
 
         player?.apply {

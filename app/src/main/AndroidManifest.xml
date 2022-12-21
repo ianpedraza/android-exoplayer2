@@ -28,7 +28,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <service android:name=".ui.audio.AudioPlayerService" />
+        <service android:name=".ui.audio.AudioDownloadService" />
     </application>
 
 </manifest>
