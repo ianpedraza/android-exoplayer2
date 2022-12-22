@@ -38,38 +38,24 @@ object AudioDataSource {
     val data = arrayListOf(
         AudioItem(
             id = UUID.randomUUID().toString(),
-            title = "Sample Track 1",
-            description = "Sample Album",
+            title = "Jazz in Paris",
+            description = "Jazz for the masses",
             uri = "https://storage.googleapis.com/exoplayer-test-media-0/Jazz_In_Paris.mp3",
-            bitmapResource = R.drawable.android_cover
+            bitmapResource = R.drawable.album_art_1
         ),
         AudioItem(
             id = UUID.randomUUID().toString(),
-            title = "Sample Track 2",
-            description = "Sample Album",
-            uri = "https://storage.googleapis.com/exoplayer-test-media-0/Jazz_In_Paris.mp3",
-            bitmapResource = R.drawable.android_cover
+            title = "The messenger",
+            description = "Hipster guide to London",
+            uri = "https://storage.googleapis.com/automotive-media/The_Messenger.mp3",
+            bitmapResource = R.drawable.album_art_2
         ),
         AudioItem(
             id = UUID.randomUUID().toString(),
-            title = "Sample Track 3",
-            description = "Sample Album",
-            uri = "https://storage.googleapis.com/exoplayer-test-media-0/Jazz_In_Paris.mp3",
-            bitmapResource = R.drawable.android_cover
-        ),
-        AudioItem(
-            id = UUID.randomUUID().toString(),
-            title = "Sample Track 4",
-            description = "Sample Album",
-            uri = "https://storage.googleapis.com/exoplayer-test-media-0/Jazz_In_Paris.mp3",
-            bitmapResource = R.drawable.android_cover
-        ),
-        AudioItem(
-            id = UUID.randomUUID().toString(),
-            title = "Sample Track 5",
-            description = "Sample Album",
-            uri = "https://storage.googleapis.com/exoplayer-test-media-0/Jazz_In_Paris.mp3",
-            bitmapResource = R.drawable.android_cover
+            title = "Talkies",
+            description = "If it talks like a duck and walks like a duck.",
+            uri = "https://storage.googleapis.com/automotive-media/Talkies.mp3",
+            bitmapResource = R.drawable.album_art_3
         )
     )
 }
