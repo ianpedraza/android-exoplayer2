@@ -5,11 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.audio.AudioFragment">
 
-    <Button
-        android:id="@+id/btn_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/play" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/image_of_queue_music"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_queue_music" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

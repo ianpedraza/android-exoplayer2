@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.exoplayer2.offline.DownloadRequest
 import com.google.android.exoplayer2.offline.DownloadService
+import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import com.ianpedraza.exoplayerio18.databinding.FragmentAudioBinding
 import com.ianpedraza.exoplayerio18.utils.AudioDataSource
@@ -30,12 +33,25 @@ class AudioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUi()
+        startPlaying()
     }
 
     private fun setupUi() {
-        binding.btnPlay.setOnClickListener {
-            // startPlaying()
-            startDownloadForItem(AudioDataSource.data.first())
+        setupListView()
+    }
+
+    private fun setupListView() {
+        val listAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            AudioDataSource.data
+        )
+
+        binding.listView.adapter = listAdapter
+
+        binding.listView.setOnItemClickListener { _, _, index, _ ->
+            val item = AudioDataSource.data[index]
+            startDownloadForItem(item)
         }
     }
 
@@ -48,7 +64,7 @@ class AudioFragment : Fragment() {
         val downloadRequest = DownloadRequest.Builder(item.id, Uri.parse(item.uri))
             .setData(null)
             .setCustomCacheKey(null)
-            // .setMimeType(MimeTypes.AUDIO_MP4)
+            .setMimeType(MimeTypes.AUDIO_MP4)
             .build()
 
         DownloadService.sendAddDownload(
@@ -57,5 +73,7 @@ class AudioFragment : Fragment() {
             downloadRequest,
             false
         )
+
+        Toast.makeText(requireContext(), "Download started", Toast.LENGTH_SHORT).show()
     }
 }

@@ -11,4 +11,6 @@ data class AudioItem(
     val uri: String,
     @DrawableRes
     val bitmapResource: Int
-)
+) {
+    override fun toString(): String = title
+}

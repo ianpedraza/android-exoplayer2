@@ -15,4 +15,5 @@
     <string name="channel_download">Download channel</string>
     <string name="channel_playback_description">This channel is used to show playback player in notifications</string>
     <string name="channel_download_description">This channel is used to show downloads progress</string>
+    <string name="image_of_queue_music">Image of queue music</string>
 </resources>
